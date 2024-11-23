@@ -5,4 +5,6 @@ toolchain go1.22.4
 use (
 	./pkg
 	./services/identity_service
+	./services/product_service
+	./services/inventory_service
 )
