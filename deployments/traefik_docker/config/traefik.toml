@@ -1,0 +1,50 @@
+defaultEntryPoints = ["https","http"]
+
+[entryPoints]
+  [entryPoints.http]
+    address = ":80"
+  [entryPoints.https]
+  address = ":443"
+  [entryPoints.https.tls]
+
+[acme]
+email = "your-email@example.com"
+storage = "acme.json"
+entryPoint = "https"
+onHostRule = true
+[acme.httpChallenge]
+entryPoint = "http"
+
+[api]
+    entryPoint = "http"
+    dashboard = true
+
+[file]
+
+[frontends]
+    [frontends.usermanagement]
+		entrypoints = ["http"]		
+		backend="usermanagement"
+		[frontends.usermanagement.routes.matchUrl]
+			rule="PathPrefixStrip:/golangmicro.usermanagement"
+
+	[frontends.productmanagement]
+		entrypoints = ["http"]		
+		backend="productmanagement"
+		[frontends.productmanagement.routes.matchUrl]
+			rule="PathPrefixStrip:/golangmicro.productmanagement"
+
+
+[backends]
+    [backends.usermanagement]
+        [backends.usermanagement.servers.main1]
+			url = "http://10.36.17.3:5002"
+			weight = 1
+
+		
+
+	[backends.productmanagement]
+        [backends.productmanagement.servers.main1]
+			url = "http://10.36.17.3:5000"
+			weight = 3
+
